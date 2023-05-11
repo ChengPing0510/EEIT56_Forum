@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>發送ajax post請求</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            document.getElementById("mybtn").onclick = function () {
+                //發送ajax post請求
+
+                //1.創建ajax核心對象
+                let xhr = new XMLHttpRequest()
+
+                //2.註冊回調函數
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            document.getElementById("mydiv").innerHTML = this.responseText
+                        }
+                        else {
+                            alert(this.status)
+                        }
+                    }
+                }
+                //3.開啟通道
+                xhr.open("POST", "/ajax/ajaxrequest3", true)
+                //4.發送請求
+                //模擬form表單提交的關鍵code
+                //請求頭必須於open之後
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                let username = document.getElementById("username").value
+                let pwd = document.getElementById("pwd").value
+                xhr.send("username=" + username + "&pwd=" + pwd)
+
+
+
+
+            }
+
+
+        }
+    </script>
+    帳號<input type="text" id="username"><br>
+    密碼<input type="password" id="pwd"><br>
+    <button id="mybtn">發送ajax post請求</button>
+
+    <div id="mydiv"></div>
+</body>
+
+</html>

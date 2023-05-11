@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login.html</title>
+</head>
+<body>
+
+<div class="alert alert-danger" th:if="${param.error}">
+    <span style="color:#F00">輸入的帳號或密碼錯誤</span>
+</div>
+<form action="/login/page" method="post">	
+   <table>
+     <tr>
+       <td>使用者名稱:</td>
+       <td><input type="text" name="username" required="required"/></td>
+     </tr>
+     <tr>
+       <td>密碼:</td>
+       <td><input type="password" name="password" required="required"/></td>
+     </tr>
+     <tr>
+       <td colspan="2">
+          <input type="checkbox" name="remember-me">記住我
+       </td>
+     </tr>
+     <tr>
+       <td colspan="2"><button type="submit" value="login">登入</button></td>
+     </tr>
+   </table>
+</form>
+</body>
+</html>

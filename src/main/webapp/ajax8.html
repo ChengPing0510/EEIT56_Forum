@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>演示ajax同步和異步</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+            document.getElementById("btn1").onclick = function () {
+                let xhr = new XMLHttpRequest()
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            document.getElementById("div1").innerHTML = this.responseText
+                        } else {
+                            alert(this.status)
+                        }
+                    }
+                }
+//                 xhr.open("GET", "/ajax/ajaxrequest8", true)
+//不支持異步，只要發了其他請求就得等這個請求結束才能發
+                xhr.open("GET", "/ajax/ajaxrequest8", false)
+                xhr.send()
+            }
+            document.getElementById("btn2").onclick = function () {
+                let xhr = new XMLHttpRequest()
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            document.getElementById("div2").innerHTML = this.responseText
+                        } else {
+                            alert(this.status)
+                        }
+                    }
+                }
+                xhr.open("GET", "/ajax/ajaxrequest9", true)
+                xhr.send()
+            }
+        }
+    </script>
+
+    <button id="btn1">ajax請求1</button>
+
+    <div id="div1"></div>
+    <button id="btn2">ajax請求2</button>
+
+    <div id="div2"></div>
+</body>
+
+</html>

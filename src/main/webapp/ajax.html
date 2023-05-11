@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>發送ajax請求</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            document.getElementById("btn").onclick = function () {
+                //1.創建ajax核心對象
+                let xhr = new XMLHttpRequest()
+                //2.註冊回調函數
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (this.status == 200) {
+//                             document.getElementById("myspan").innerHTML = this.responseText
+                            document.getElementById("mydiv").innerHTML = this.responseText
+                            //通過XMLHttpRequestText屬性可以獲取到服務器響應回來的內容
+                            //並且不管響應回來的是什麼，都以普通文本的形式獲取。(服務器可能響應回來普通文本、XML、JSON、HTML)
+
+                        } else {
+                            alert(this.status)
+                        }
+
+                    }
+                }
+                //3.開啟通道
+                let usercode=document.getElementById("usercode").value
+                let username=document.getElementById("username").value                
+                xhr.open("GET", "/ajax/ajaxrequest2?usercode="+usercode+"&username="+username, true)
+                //4.發送請求
+                xhr.send()
+            }
+        }
+
+    </script>
+    usercode<input type="text" id="usercode"><br>
+    username<input type="text" id="username"><br>
+    <button id="btn">發送ajax get請求</button>
+    <span id="myspan"></span>
+    <div id="mydiv"></div>
+</body>
+
+</html>

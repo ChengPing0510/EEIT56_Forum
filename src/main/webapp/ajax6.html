@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>發送ajax請求，顯示學員列表</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+            document.getElementById("btn").onclick = function () {
+                //1創建核心對象
+                let xhr = new XMLHttpRequest()
+                //2註冊回調函數
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            //                             document.getElementById("student").innerHTML
+                            let stuList = JSON.parse(this.responseText)
+                            let html = ""
+                            for (let i = 0; i < stuList.length; i++) {
+                                let stu = stuList[i]
+                                html += "<tr>"
+                                html += "<td>" + stu.activeID + "</td>"
+                                html += "<td>" + stu.activeName + "</td>"
+                                html += "<td>" + stu.activeDescription + "</td>"
+                                html += "<td>" + stu.activeStartDate + "</td>"
+                                html += "</tr>"
+
+                            }
+                            document.getElementById("student").innerHTML = html
+
+
+                        } else {
+                            alert(this.status)
+                        }
+                    }
+
+                }
+                //3開啟通道
+                xhr.open("GET", "/ajax/ajax7", true)
+                //4發送請求
+                xhr.send()
+            }
+        }
+    </script>
+
+
+    <input type="button" value="顯示學員列表" id="btn">
+
+    <table width="50%" border="1px">
+        <tr>
+            <th>序號</th>
+            <th>姓名</th>
+            <th>年齡</th>
+            <th>住址</th>
+        </tr>
+        <tbody id="student">
+            <!-- <tr>
+                <td>1</td>
+                <td>小明</td>
+                <td>20</td>
+                <td>台北淡水</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>曉華</td>
+                <td>25</td>
+                <td>台南清水</td>
+            </tr> -->
+
+
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>

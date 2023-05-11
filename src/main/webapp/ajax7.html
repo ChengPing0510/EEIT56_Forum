@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用XML完成數據交換</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+            document.getElementById("btn").onclick = function () {
+                //1創建ajax核心對象
+                let xhr = new XMLHttpRequest()
+
+                //2註冊回調函數
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            //如何接收XML字串
+                            let xmlDoc = this.responseXML
+                            // console.log(xmlDoc)
+                            let students = xmlDoc.getElementsByTagName("student")
+//                             console.log(students[0].nodeName)
+for (let i = 0; i < students.length; i++) {
+                                let student = students[i]
+                                //獲取student元素下的所有子元素
+                                let nameOrAge = student.childNodes
+                                for (let j = 0; j < nameOrAge.length; j++) {
+                                    let node = nameOrAge[j]
+                                    if (node.nodeName == "name") {
+                                        console.log("name=" + node.textContent)
+                                    }
+                                    if (node.nodeName == "age") {
+                                        console.log("age=" + node.textContent)
+                                    }
+                                }
+                            }
+                        } else {
+                            alert(this.status)
+                        }
+                    }
+
+                }
+                //3開啟通道
+                xhr.open("GET", "/ajax/ajaxrequest6", true)
+
+                //4發送請求
+                xhr.send()
+            }
+        }
+    </script>
+
+    <button id="btn">顯示學生列表</button>
+    <table width="500px" border="1px">
+        <thead>
+            <tr>
+                <th>序號</th>
+                <th>姓名</th>
+                <th>年齡</th>
+            </tr>
+        </thead>
+        <tbody id="stubody">
+
+
+        </tbody>
+    </table>
+</body>
+
+
+
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax post請求驗證帳號是否可用</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+        	
+            document.getElementById("username").onfocus = function () {
+                document.getElementById("tipMsg").innerHTML = ""
+
+            }
+
+        	
+            document.getElementById("username").onblur = function () {
+                // console.log("正在發送ajax post請求驗證帳號")
+                //發送ajax post請求
+                let xhr = new XMLHttpRequest()
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            document.getElementById("tipMsg").innerHTML = this.responseText
+
+                        } else {
+                            alert(this.status)
+                        }
+                    }
+
+                }
+                xhr.open("POST", "ajax/ajaxrequest5", true)
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+                let username = document.getElementById("username").value
+                xhr.send("username=" + username)
+
+            }
+        }
+    </script>
+
+    帳號:<input type="text" id="username">
+
+    <span id="tipMsg"></span>
+
+</body>
+
+</html>

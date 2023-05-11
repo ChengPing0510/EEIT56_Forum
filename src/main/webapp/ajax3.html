@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>發送ajax請求</title>
+</head>
+
+<body>
+    <script>
+
+        //1.創建ajax核心對象
+        let xhr = new XMLHttpRequest()
+        window.onload = function () {
+            document.getElementById("btn").onclick = function () {
+
+                //2.註冊回調函數
+                xhr.onreadystatechange = callback
+                //3.開啟通道
+                xhr.open("GET", "/ajax/ajaxrequest2", true)
+                //4.發送請求
+                xhr.send()
+            }
+        }
+
+        function callback() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    document.getElementById("mydiv").innerHTML = xhr.responseText
+                } else {
+                    alert(xhr.status)
+                }
+            }
+        }
+
+    </script>
+    <button id="btn">發送ajax get請求</button>
+    <span id="myspan"></span>
+    <div id="mydiv"></div>
+</body>
+
+</html>
